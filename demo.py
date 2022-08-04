@@ -1,23 +1,24 @@
 import torch
 import matplotlib.pyplot as plt
-from MonoNN import MonoNN
+from MonoNN import MonoNetwork
+
 
 def create_dataset(n_samples, func):
     x = 2 * torch.rand(n_samples, 1) - 1
-    # exploit monotonicity (increasing)
-    y = 2 * ((func(x) - func(torch.tensor(-1))) / (func(torch.tensor(1)) - func(torch.tensor(-1)))) - 1
-    #y = func(x)
+    x = 20 * x
+    y = func(x)
     return x, y
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-model = MonoNN([10, 10, 10, 1], input_monotonicity=[1]).to(device)
+model = MonoNetwork([10, 10, 10, 1], input_monotonicity=[1]).to(device)
 optim = torch.optim.Adam(model.parameters(), 1e-2)
 
 n_instances = 1000
 n_epochs = 250
 batch_size = 50
-x, y = create_dataset(n_instances, lambda x: 10*x + torch.sin(10 * x))
+x, y = create_dataset(n_instances, lambda x: torch.sin(x))
+
 
 for epoch in range(0, n_epochs):
     # Shuffle
@@ -55,6 +56,8 @@ plt.title("Approximation")
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()
+
+print(sum(p.numel() for p in model.parameters() if p.requires_grad))
 
 plt.show()
 

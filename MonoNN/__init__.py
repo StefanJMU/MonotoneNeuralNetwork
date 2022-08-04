@@ -1,2 +1,2 @@
 
-from ._mono import MonoNN
+from ._mono import MonoNetwork
