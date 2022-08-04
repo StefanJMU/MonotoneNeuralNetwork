@@ -55,7 +55,7 @@ class MonoNetwork(nn.Module):
 
         """
 
-    def __init__(self, hidden_layers, input_monotonicity: list):
+    def __init__(self, hidden_layers: List[int], input_monotonicity: List[Literal[-1, 1]]):
         super().__init__()
         self.register_buffer('monotonicity', torch.tensor([input_monotonicity]))
         layers = [len(input_monotonicity)] + hidden_layers
