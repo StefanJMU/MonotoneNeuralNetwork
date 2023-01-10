@@ -8,7 +8,7 @@ formulation of a feed-forward architecture:
 
 Considering a single layer network $f$ with input in $x \in \mathbb{R}^n$ with $\mathbb{m}^0 \in \\{-1, 1\\}^n$, indicating
 that the network outputs are required to be non-increasing (-1) or non-decreasing (1) for the respective element
-of $x$, the output of the layer is given defined as 
+of $x$, the output of the layer is defined as 
 
 $f(x) = \sigma({\mathbb{m}^0}^TW^2x + b)$
 
