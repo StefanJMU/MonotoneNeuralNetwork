@@ -6,21 +6,21 @@ Compact neural network architecture approximating monotonic functions.
 The restriction to monotonical functions is achieved by small changes in the general
 formulation of a feed-forward architecture:
 
-Considering a single layer network $f$ with input in $x \in \mathbb{R}^n$ with $\mathbb{m}^0 \in \\{-1, 1\\}^n$, indicating
+Considering a single layer network $f$ with input $x \in \mathbb{R}^n$ and $M \in \\{diag(k) : k \in \\{-1, 1\\}\\}^n$, indicating
 that the network outputs are required to be non-increasing (-1) or non-decreasing (1) for the respective element
 of $x$, the output of the layer is defined as 
 
-$f(x) = \sigma({\mathbb{m}^0}^TW^2x + b)$
+$f(x) = \sigma(W^2Mx + b)$
 
 , for any monotonically increasing activation function $\sigma$.
 
 The partial derivative is then
 
-$\frac{\delta f(x)_i}{\delta x_j} = \dot{\sigma}(\mathbb{m}_0^TW^2x + b)_i \mathbb{m}^0_j W\_{ij}^2$
+$\frac{\delta f(x)_i}{\delta x_j} = \dot{\sigma}(W^2Mx + b)_i M\_{jj} W\_{ij}^2$
 
-, with $sign(\frac{\delta f(x)_i}{\delta x_j}) = sign(\mathbb{m}_j)$.
+, with $sign(\frac{\delta f(x)_i}{\delta x_j}) = sign(M\_{jj})$.
 
-Setting in a multi-layer network for all layers $i > 0$ $\mathbb{m}^i = \mathbb{1}$, 
+Setting in a multi-layer network for all non-input layers $M = diag(\\{1, \dots, 1\\})$, 
 the required monotonic property is preserved in the layer composition.
 
 ## Use cases
